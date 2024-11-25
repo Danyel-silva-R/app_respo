@@ -1,6 +1,9 @@
+import 'package:app_repositorio/screens/projeto_pagens.dart';
 import 'package:app_repositorio/utils.dart';
+import 'package:app_repositorio/widgets/drew_main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/main_card.dart';
 import '../widgets/main_card_list.dart';
@@ -11,11 +14,12 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
 typedef Projeto = ({
   String nome,
   String descricao,
   String imagem,
+  String? subtitulo, // Novo campo para subtítulo
+  String? detalhes,  // Novo campo para mais detalhes
 });
 
 class _HomePageState extends State<HomePage> {
@@ -23,55 +27,69 @@ class _HomePageState extends State<HomePage> {
   bool light1 = true;
   int selectedSegment = 0;
 
-  final projetos = <Projeto>[
-    (
-      nome: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      descricao:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis fermentum elit. Suspendisse eleifend auctor nisl, in blandit nulla porttitor non. Duis eget venenatis eros, ac mattis magna. Fusce tortor mauris, interdum vel rhoncus vitae, semper eleifend libero. Cras sapien est, gravida ac elit nec, egestas commodo enim.',
-      imagem: 'assets/images/01.jpg'
-    ),
-    (
-      nome: 'Projeto 02',
-      descricao: 'Descrição do projeto 02',
-      imagem: 'assets/images/02.jpg'
-    ),
-    (
-      nome: 'Projeto 03',
-      descricao: 'Descrição do projeto 03',
-      imagem: 'assets/images/03.jpg'
-    ),
-    (
-      nome: 'Projeto 04',
-      descricao: 'Descrição do projeto 04',
-      imagem: 'assets/images/04.jpg'
-    ),
-    (
-      nome: 'Projeto 05',
-      descricao: 'Descrição do projeto 05',
-      imagem: 'assets/images/05.jpg'
-    ),
-    (
-      nome: 'Projeto 06',
-      descricao: 'Descrição do projeto 06',
-      imagem: 'assets/images/06.jpg'
-    ),
-    (
-      nome: 'Projeto 07',
-      descricao: 'Descrição do projeto 07',
-      imagem: 'assets/images/07.jpg'
-    ),
-    (
-      nome: 'Projeto 08',
-      descricao: 'Descrição do projeto 08',
-      imagem: 'assets/images/08.jpg'
-    ),
-  ];
+ final projetos = <Projeto>[
+  (
+    nome: 'Arduino',
+    descricao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis fermentum elit. Suspendisse eleifend auctor nisl, in blandit nulla porttitor non. Duis eget venenatis eros, ac mattis magna. Fusce tortor mauris, interdum vel rhoncus vitae, semper eleifend libero.',
+    imagem: 'assets/images/01.jpg',
+    subtitulo: 'Projeto com Arduino',
+    detalhes: 'Este projeto envolve o uso de placas Arduino para automação e controle de sistemas.'
+  ),
+  (
+    nome: 'Desenvolvimento Web',
+    descricao: 'Descrição do projeto 02',
+    imagem: 'assets/images/02.jpg',
+    subtitulo: 'Construção de Sites e Aplicações Web',
+    detalhes: 'Focado na criação de sites dinâmicos e responsivos usando tecnologias como HTML, CSS, JavaScript e frameworks como React.'
+  ),
+  (
+    nome: 'Empreendedorismo',
+    descricao: 'Descrição do projeto 03',
+    imagem: 'assets/images/03.jpg',
+    subtitulo: 'Iniciativas Empresariais',
+    detalhes: 'Projeto que visa fomentar o espírito empreendedor e a criação de startups inovadoras no setor de tecnologia.'
+  ),
+  (
+    nome: 'Matemática',
+    descricao: 'Descrição do projeto 04',
+    imagem: 'assets/images/04.jpg',
+    subtitulo: 'Aprofundamento em Cálculos e Teorias',
+    detalhes: 'Exploração de conceitos matemáticos avançados para aplicação em áreas como física e engenharia.'
+  ),
+  (
+    nome: 'Visão Computacional',
+    descricao: 'Descrição do projeto 05',
+    imagem: 'assets/images/05.jpg',
+    subtitulo: 'Reconhecimento de Imagens e Análise de Dados',
+    detalhes: 'Uso de algoritmos de visão computacional para interpretar imagens e vídeos, aplicando técnicas como aprendizado de máquina.'
+  ),
+  (
+    nome: 'Gamificação',
+    descricao: 'Descrição do projeto 06',
+    imagem: 'assets/images/06.jpg',
+    subtitulo: 'Incorporando Jogos para Engajamento',
+    detalhes: 'Aplicação de mecânicas de jogos em ambientes não-jogos para melhorar o engajamento e a motivação.'
+  ),
+  (
+    nome: 'Arma de Anão Pistola',
+    descricao: 'Descrição do projeto 07',
+    imagem: 'assets/images/07.jpg',
+    subtitulo: 'Projeto de Design e Funcionalidade',
+    detalhes: 'Desenvolvimento de um protótipo para uma arma funcional em um projeto de engenharia e design.'
+  ),
+  (
+    nome: 'Projeto 08',
+    descricao: 'Descrição do projeto 08',
+    imagem: 'assets/images/08.jpg',
+    subtitulo: 'Inovação em Tecnologia',
+    detalhes: 'Exploração de novas tecnologias e suas aplicações no mundo atual, com foco em soluções práticas para o dia a dia.'
+  ),
+];
 
   final filtersName = <String>{
     'Tecnico',
     'Subsequente',
     'Graduaçao',
-    
   };
   final filters = <String>{};
 
@@ -94,77 +112,29 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-          ),
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: MySearchDelegate(projetos),
+                );
+              }),
           const SizedBox(width: 16)
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              child: Column(
-                children: [
-                  const CircleAvatar(
-                    radius: 42,
-                    child: Icon(
-                      Icons.account_circle_rounded,
-                      size: 64,
-                    ),
-                  ),
-                  Text(
-                    'Deriks Karlay',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              selected: selectedIndex == 0,
-              selectedTileColor: const Color.fromARGB(255, 80, 83, 86),
-              onTap: () {
-                setState(() {
-                  selectedIndex = 0;
-                });
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.work),
-              title: const Text('Projetos'),
-              selected: selectedIndex == 1,
-              selectedTileColor:const Color.fromARGB(255, 80, 83, 86),
-              onTap: () {
-                setState(() {
-                  selectedIndex = 1;
-                });
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Configuraçao'),
-              selected: selectedIndex == 2,
-              selectedTileColor:const Color.fromARGB(255, 80, 83, 86),
-              onTap: () {
-                setState(() {
-                  selectedIndex = 2;
-                });
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: DrewMain(),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Galeria de projetos do IFPA',
+              style: GoogleFonts.getFont('Poppins',
+              fontSize: 25,
+              color:Color.fromRGBO(13, 10, 210, 1),
+              ),
+              ),
+            ),
             CarouselSlider(
               items: projetos.take(5).map(ImageSlide.new).toList(),
               options: CarouselOptions(
@@ -230,27 +200,51 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 900,
-              ),
-              child: Wrap(
-                children: [
-                  ...projetos.map((projeto) {
-                    return selectedSegment == 0
-                        ? MainCard(
-                            name: projeto.nome,
-                            description: projeto.descricao,
-                            image: projeto.imagem,
-                          )
-                        : MainCardList(
-                            name: projeto.nome,
-                            description: projeto.descricao,
-                            image: projeto.imagem,
-                          );
-                  }),
-                ],
-              ),
-            ),
+                  constraints: const BoxConstraints(
+                    maxWidth: 900,
+                  ),
+                  child: Wrap(
+                    children: [
+                      ...projetos.map((projeto) {
+                        return selectedSegment == 0
+                            ? GestureDetector(
+                                onTap: () {
+                                  // Navegar para a página de detalhes do projeto
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProjetoDetalhesPage(projeto: projeto),
+                                    ),
+                                  );
+                                },
+                                child: MainCard(
+                                  name: projeto.nome,
+                                  description: projeto.descricao,
+                                  image: projeto.imagem,
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  // Navegar para a página de detalhes do projeto
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProjetoDetalhesPage(projeto: projeto),
+                                    ),
+                                  );
+                                },
+                                child: MainCardList(
+                                  name: projeto.nome,
+                                  description: projeto.descricao,
+                                  image: projeto.imagem,
+                                ),
+                              );
+                      }),
+                    ],
+                  ),
+                ),
+
+
           ],
         ),
       ),
@@ -296,6 +290,97 @@ class ImageSlide extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class MySearchDelegate extends SearchDelegate {
+  final List<Projeto> projetos;
+
+  MySearchDelegate(this.projetos);
+
+  @override
+  List<Widget>? buildActions(BuildContext context) => [
+    IconButton(
+      icon: const Icon(Icons.clear),
+      onPressed: () {
+        if (query.isEmpty) {
+          close(context, null);
+        } else {
+          query = '';
+        }
+      },
+    ),
+  ];
+
+  @override
+  Widget? buildLeading(BuildContext context) => IconButton(
+    icon: const Icon(Icons.arrow_back),
+    onPressed: () => close(context, null),
+  );
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // Filtra os projetos com base na pesquisa do usuário
+    final List<Projeto> filteredProjects = projetos
+        .where((projeto) => projeto.nome.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    // Caso nenhum projeto seja encontrado
+    if (filteredProjects.isEmpty) {
+      return Center(
+        child: Text(
+          'Nenhum projeto encontrado',
+          style: GoogleFonts.getFont('Poppins'),
+        ),
+      );
+    }
+
+    // Exibe os projetos filtrados
+    return ListView.builder(
+      itemCount: filteredProjects.length,
+      itemBuilder: (context, index) {
+        final projeto = filteredProjects[index];
+
+        return ListTile(
+          title: Text(projeto.nome),
+          onTap: () {
+            // Navegar para a página de detalhes do projeto
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProjetoDetalhesPage(projeto: projeto),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final List<String> allSuggestions = projetos.map((p) => p.nome).toList();
+
+    // Filtro de sugestões baseado na query
+    final List<String> filteredSuggestions = allSuggestions
+        .where((suggestion) =>
+            suggestion.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    return ListView.builder(
+      itemCount: filteredSuggestions.length,
+      itemBuilder: (context, index) {
+        final suggestion = filteredSuggestions[index];
+
+        return ListTile(
+          title: Text(suggestion),
+          onTap: () {
+            query = suggestion;
+            showResults(context);
+          },
+        );
+      },
     );
   }
 }

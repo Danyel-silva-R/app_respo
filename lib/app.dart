@@ -1,8 +1,9 @@
 
+// import 'package:app_repositorio/screens/home_page.dart';
+import 'package:app_repositorio/screens/splash_pae.dart';
 import 'package:flutter/material.dart';
 
 // import 'screens/home_page.dart';
-import 'screens/login_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -12,9 +13,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       // debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
+        colorSchemeSeed: Color.fromARGB(244, 17, 13, 245),
       ),
-      home: const LoginPage(),
+      home: const SplashPae()
     );
   }
 }

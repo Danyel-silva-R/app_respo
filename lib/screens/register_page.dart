@@ -1,30 +1,26 @@
-import 'package:app_repositorio/screens/home_page.dart';
 import 'package:app_repositorio/widgets/btn.dart';
 import 'package:app_repositorio/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final String assetName = 'assets/images/sea.svg';
-
-class LoginPage extends StatefulWidget {
-
+  
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key,required this.onta});
   final Function()? onta;
-  const LoginPage({super.key,required this.onta});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-
-void singIn(){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-}
-
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    TextEditingController passworcomfirController = TextEditingController();
+
+
 
     return Scaffold(
       body: Column(
@@ -50,13 +46,15 @@ void singIn(){
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              'Ola Bem-Vindo de Volta',
+              'Repositorio de projetos do IFPA',
               style: GoogleFonts.getFont(
                 'Poppins',
                 fontSize: 22,
               ),
             ),
           ),
+
+            // campos de entradas Email
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
@@ -70,14 +68,13 @@ void singIn(){
               ],
             ),
           ),
-
-          // campos de entradas
           MyTextfield(
               controller: emailController,
               obscureText: false,
               hinText: 'email'),
 
-          Padding(
+               // campo de Entrada senha
+              Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -90,25 +87,40 @@ void singIn(){
               ],
             ),
           ),
-          // campo de senha
+          MyTextfield(
+              controller: passworcomfirController,
+              obscureText: true,
+              hinText: 'Senha'),
+
+                 // campos de entradas comfirmasenha 
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Confirma Senha',
+                  style: GoogleFonts.getFont('Poppins',
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
           MyTextfield(
               controller: passwordController,
               obscureText: true,
-              hinText: 'senha'),
-
-
+              hinText: 'Comfirma Senha'),
           //butao de entraar
-          Btn(onta: singIn,
-            text: 'Entra'),
+          Btn(text: 'Criar Conta'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Voce nao tem uma conta?   ',
+              Text('Voce ja tem uma conta?   ',
                style:GoogleFonts.getFont('Poppins',
                 fontSize: 18,),),
               GestureDetector(
                 onTap: widget.onta,
-                child: Text('clique aqui ',
+                child: Text('Entra ',
                 style:GoogleFonts.getFont('Poppins',
                 fontSize: 18,
                 color:Color.fromRGBO(13, 10, 210, 1),
