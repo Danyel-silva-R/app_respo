@@ -52,7 +52,7 @@ class ProjetoDetalhesPage extends StatelessWidget {
               projeto.descricao,
               style: TextStyle(fontSize: 16),
             ),
-            Text('Integrates do projetor',style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Text('Integrantes do projetor',style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
           ],
         ),

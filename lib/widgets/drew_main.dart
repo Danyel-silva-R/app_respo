@@ -1,3 +1,4 @@
+import 'package:app_repositorio/screens/configur_page.dart';
 import 'package:app_repositorio/widgets/list_tiler.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,24 @@ class DrewMain extends StatelessWidget {
               color: Color.fromARGB(255, 255, 255, 255),
             ),
           ),
-          ListTill(text: 'INICIO', onta: () {}, icon: Icons.home),
-          ListTill(text: 'CONFIGURAÇOES', onta: () {}, icon: Icons.settings),
+          ListTill(
+              text: 'INICIO',
+              onta: () {
+                Navigator.pop(
+                  context,
+                );
+              },
+              icon: Icons.home),
+          ListTill(
+              text: 'CONFIGURAÇOES',
+              onta: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ConfigurPage()));
+              },
+              icon: Icons.settings),
           ListTill(text: 'PROJETOS SALVOS', onta: () {}, icon: Icons.bookmark),
+          ListTill(text: 'INFOMAÇOES', onta: () {}, icon: Icons.info),
+          const Spacer(),
           const Spacer(),
           ListTill(text: 'SAIR', onta: () {}, icon: Icons.logout),
           Padding(
