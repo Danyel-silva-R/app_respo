@@ -1,9 +1,21 @@
+import 'package:app_repositorio/auth/auth_servico.dart';
 import 'package:app_repositorio/screens/configur_page.dart';
 import 'package:app_repositorio/widgets/list_tiler.dart';
 import 'package:flutter/material.dart';
 
-class DrewMain extends StatelessWidget {
+class DrewMain extends StatefulWidget {
   const DrewMain({super.key});
+
+  @override
+  State<DrewMain> createState() => _DrewMainState();
+}
+
+class _DrewMainState extends State<DrewMain> {
+  final authService = AuthServico();
+
+  void logunt() async {
+    await authService.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +50,7 @@ class DrewMain extends StatelessWidget {
           ListTill(text: 'INFOMAÇOES', onta: () {}, icon: Icons.info),
           const Spacer(),
           const Spacer(),
-          ListTill(text: 'SAIR', onta: () {}, icon: Icons.logout),
+          ListTill(text: 'SAIR', onta: logunt, icon: Icons.logout),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

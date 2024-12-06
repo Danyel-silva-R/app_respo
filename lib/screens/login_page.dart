@@ -1,4 +1,6 @@
-import 'package:app_repositorio/screens/home_page.dart';
+// import 'package:app_repositorio/screens/home_page.dart';
+import 'package:app_repositorio/auth/auth_servico.dart';
+import 'package:app_repositorio/screens/register_page.dart';
 import 'package:app_repositorio/widgets/btn.dart';
 import 'package:app_repositorio/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 final String assetName = 'assets/images/sea.svg';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
-  final Function()? onta;
-  const LoginPage({super.key,required this.onta});
+
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -17,14 +19,29 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-void singIn(){
-  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+final authService = AuthServico();
+
+ final  emailController = TextEditingController();
+ final  passwordController = TextEditingController();
+
+
+void login() async{
+  final email = emailController.text;
+  final password = passwordController.text;
+
+try {
+  await authService.signInWithEmailPassword(email, password);
+} catch (e) {
+  if (mounted) {
+    ScaffoldMessenger.of(context).
+    showSnackBar(SnackBar(content:Text("ERROR:$e") ));
+  }
+}
 }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    
 
     return Scaffold(
       body: Column(
@@ -98,7 +115,7 @@ void singIn(){
 
 
           //butao de entraar
-          Btn(onta: singIn,
+          Btn(onta: login,
             text: 'Entra'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +124,7 @@ void singIn(){
                style:GoogleFonts.getFont('Poppins',
                 fontSize: 18,),),
               GestureDetector(
-                onTap: widget.onta,
+                onTap: ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=> const RegisterPage())),
                 child: Text('clique aqui ',
                 style:GoogleFonts.getFont('Poppins',
                 fontSize: 18,

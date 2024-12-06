@@ -1,27 +1,49 @@
+import 'package:app_repositorio/auth/auth_servico.dart';
 import 'package:app_repositorio/widgets/btn.dart';
 import 'package:app_repositorio/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final String assetName = 'assets/images/sea.svg';
-  
+
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key,required this.onta});
-  final Function()? onta;
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final authService = AuthServico();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final comfirpassworController = TextEditingController();
+
+  void singUp() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+    final comfima = comfirpassworController.text;
+
+    if (password != comfima) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('as senhas sao diferentes')));
+          return;
+    }
+    try {
+      await authService.signUpWithEmailPassword(email, password);
+      Navigator.pop(context);
+    } catch (e) {
+      if (mounted) {
+         ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(content: Text("ERROR : $e")));
+          return;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController passworcomfirController = TextEditingController();
-
-
-
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
 
-            // campos de entradas Email
+          // campos de entradas Email
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
@@ -73,8 +95,8 @@ class _RegisterPageState extends State<RegisterPage> {
               obscureText: false,
               hinText: 'email'),
 
-               // campo de Entrada senha
-              Padding(
+          // campo de Entrada senha
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -88,11 +110,11 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           MyTextfield(
-              controller: passworcomfirController,
+              controller: comfirpassworController,
               obscureText: true,
               hinText: 'Senha'),
 
-                 // campos de entradas comfirmasenha 
+          // campos de entradas comfirmasenha
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
@@ -111,21 +133,28 @@ class _RegisterPageState extends State<RegisterPage> {
               obscureText: true,
               hinText: 'Comfirma Senha'),
           //butao de entraar
-          Btn(text: 'Criar Conta'),
+          Btn(
+            onta: singUp,
+            text: 'Criar Conta'),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Voce ja tem uma conta?   ',
-               style:GoogleFonts.getFont('Poppins',
-                fontSize: 18,),),
-              GestureDetector(
-                onTap: widget.onta,
-                child: Text('Entra ',
-                style:GoogleFonts.getFont('Poppins',
-                fontSize: 18,
-                color:Color.fromRGBO(13, 10, 210, 1),
-
+              Text(
+                'Voce ja tem uma conta?   ',
+                style: GoogleFonts.getFont(
+                  'Poppins',
+                  fontSize: 18,
                 ),
+              ),
+              GestureDetector(
+                onTap: (){},
+                child: Text(
+                  'Entra ',
+                  style: GoogleFonts.getFont(
+                    'Poppins',
+                    fontSize: 18,
+                    color: Color.fromRGBO(13, 10, 210, 1),
+                  ),
                 ),
               )
             ],
