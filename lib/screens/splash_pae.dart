@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:app_repositorio/auth/auth_gate.dart';
+import 'package:app_repositorio/screens/intro.dart';
 
 
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class SplashPae extends StatelessWidget {
       ),
       nextScreen:
       
-       const AuthGate(),
+       const Intro(),
       splashIconSize: 300,
       backgroundColor: Color.fromRGBO(13, 10, 210, 1),
     );

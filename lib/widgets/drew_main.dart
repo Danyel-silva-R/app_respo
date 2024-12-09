@@ -47,7 +47,7 @@ class _DrewMainState extends State<DrewMain> {
               },
               icon: Icons.settings),
           ListTill(text: 'PROJETOS SALVOS', onta: () {}, icon: Icons.bookmark),
-          ListTill(text: 'INFOMAÇOES', onta: () {}, icon: Icons.info),
+          ListTill(text: 'SOBRE ', onta: () {}, icon: Icons.info),
           const Spacer(),
           const Spacer(),
           ListTill(text: 'SAIR', onta: logunt, icon: Icons.logout),
