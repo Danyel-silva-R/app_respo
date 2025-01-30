@@ -1,6 +1,8 @@
 
 
+import 'package:app_repositorio/widgets/theme/themer_menager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app.dart';
@@ -11,5 +13,9 @@ void main() async{
     url:"https://ypzbparyngakzqoxbhzf.supabase.co" ,
   );
 
-  runApp(const App());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemerMenager(),
+      child: const App(),
+      ));
 }

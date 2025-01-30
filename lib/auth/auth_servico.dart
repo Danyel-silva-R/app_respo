@@ -29,9 +29,18 @@ class AuthServico {
    }
 
   //  get  user email
+  String? getCurrentUserName() {
+    final session = _supabase.auth.currentSession;
+    final user = session?.user;
+    return user?.id;
+  }
+
+  
+  //  get  user email
   String? getCurrentUserEmail() {
     final session = _supabase.auth.currentSession;
     final user = session?.user;
     return user?.email;
   }
 }
+

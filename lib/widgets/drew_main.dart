@@ -1,5 +1,6 @@
 import 'package:app_repositorio/auth/auth_servico.dart';
 import 'package:app_repositorio/screens/configur_page.dart';
+import 'package:app_repositorio/screens/projetos_salvos.dart';
 import 'package:app_repositorio/widgets/list_tiler.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _DrewMainState extends State<DrewMain> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color.fromARGB(244, 17, 13, 245),
+      backgroundColor:Theme.of(context).primaryColor,
       child: Column(
         children: [
           Padding(
@@ -46,7 +47,10 @@ class _DrewMainState extends State<DrewMain> {
                     MaterialPageRoute(builder: (context) => ConfigurPage()));
               },
               icon: Icons.settings),
-          ListTill(text: 'PROJETOS SALVOS', onta: () {}, icon: Icons.bookmark),
+          ListTill(text: 'PROJETOS SALVOS', onta: () {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>ProjetosSalvos()));
+          }, icon: Icons.bookmark),
           ListTill(text: 'SOBRE ', onta: () {}, icon: Icons.info),
           const Spacer(),
           const Spacer(),

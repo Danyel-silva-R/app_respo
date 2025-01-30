@@ -1,5 +1,9 @@
+import 'package:app_repositorio/auth/auth_servico.dart';
+import 'package:app_repositorio/screens/perguntas.dart';
+import 'package:app_repositorio/screens/politica.dart';
+import 'package:app_repositorio/widgets/theme/themer_menager.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ConfigurPage extends StatefulWidget {
   const ConfigurPage({super.key});
@@ -8,9 +12,16 @@ class ConfigurPage extends StatefulWidget {
   State<ConfigurPage> createState() => _ConfigurPageState();
 }
 
+// conectando com o auth
+final authService = AuthServico();
+
 class _ConfigurPageState extends State<ConfigurPage> {
+  bool heart = false;
+
   @override
   Widget build(BuildContext context) {
+    final currentEmail = authService.getCurrentUserEmail();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Configuraçoes'),
@@ -19,37 +30,122 @@ class _ConfigurPageState extends State<ConfigurPage> {
       body: Center(
         child: Column(
           children: [
-            
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(bottomLeft:Radius.zero),
-                color: Color.fromARGB(255, 13, 25, 195)
-              ),
-              child: Column(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  IconButton(onPressed:(){
-
-                  } , icon: Icon(Icons.person)),
-                  Icon(
-                    Icons.account_circle_sharp,
-                    size: 150,
-                    color:const Color.fromARGB(255, 255, 255, 255),
+                  Text(
+                    'Perfil',
+                    style: Theme.of(context).textTheme.titleLarge,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                   Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Danyel da Silva Rodrigues ',
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.getFont('Poppins',
-                  fontSize: 25,
-                  color: Color.fromARGB(225, 225, 225, 225))),
-               
-              ],
-            )
                 ],
               ),
             ),
-           
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).colorScheme.primary),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.account_circle_sharp,
+                            size: 150,
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Danyelsrf',
+                              style: 
+                              Theme.of(context).textTheme.titleMedium),
+                              Text( currentEmail.toString(),
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Preferências',
+                        style: Theme.of(context).textTheme.titleLarge,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Terma:',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      IconButton(
+                        splashColor: Colors.deepPurple,
+                        onPressed: () {
+                          Provider.of<ThemerMenager>(context, listen: false)
+                              .toggleTheme();
+                          setState(() => heart = !heart);
+                        },
+                        icon: Icon(heart
+                            ? Icons.light_mode_rounded
+                            : Icons.dark_mode_sharp),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=> const Politica())),
+                        child: Text(
+                          'Política de Privacidade',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 4),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap:  ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=>  Perguntas())),
+                        child: Text(
+                          'Ajuda e Suporte',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

@@ -56,7 +56,7 @@ class _MainCardState extends State<MainCard> {
                         ),
                         Text(
                           widget.description,
-                          style: TextStyle(height: 1.2),
+                          style: Theme.of(context).textTheme.titleSmall,
                           textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
@@ -74,6 +74,8 @@ class _MainCardState extends State<MainCard> {
             child: IconButton(
               onPressed: () {
                 setState(() => heart = !heart);
+            
+
               },
               icon: Icon(
                 color: heart ? Colors.red : null,

@@ -31,11 +31,13 @@ void login() async{
 
 try {
   await authService.signInWithEmailPassword(email, password);
-} catch (e) {
-  if (mounted) {
+   if (mounted) {
     ScaffoldMessenger.of(context).
-    showSnackBar(SnackBar(content:Text("ERROR:$e") ));
+    showSnackBar(SnackBar(content:Text('A senha ou o email estar incorretor') ));
   }
+} catch (e) {
+  ScaffoldMessenger.of(context).
+    showSnackBar(SnackBar(content:Text('Oorreu um error, tente novamente',) ));
 }
 }
 
@@ -44,6 +46,9 @@ try {
     
 
     return Scaffold(
+      appBar: AppBar(title: Text('Login'),
+      centerTitle: true,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

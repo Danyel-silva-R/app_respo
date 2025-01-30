@@ -13,7 +13,7 @@ class Intro extends StatefulWidget {
 }
 
 class _Intro extends State<Intro> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   bool onLastPage = false;
 
   @override
@@ -35,41 +35,7 @@ class _Intro extends State<Intro> {
 
           ],
         ),
-         Center(
-           child: Column(
-             children: [
-               Container(
-                height:400,
-                color: Color.fromRGBO(49, 109, 239, 1),
-                child: Center(
-                    child: Column(
-                  children: [
-                    SizedBox(height: 50,),
-                    Text('Hive Hub:',
-                    style: TextStyle(
-                      fontSize:35 ,
-                      fontWeight: FontWeight.bold,
-                      color:Colors.white
-                    ),
-                    ),
-                    Text('Space Station',
-                    style: TextStyle(
-                      fontSize:35 ,
-                       fontWeight: FontWeight.bold,
-                      color:Colors.white
-                    ),
-                    ),
-                    Image.asset(
-                      'assets/images/Group 5.png',
-                      height: 250,
-                      width: 300,
-                    )
-                  ],
-                )),
-                   ),
-             ],
-           ),
-         ),
+        
         Container(
           alignment: Alignment(0, 0.75),
         child: Row(

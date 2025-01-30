@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 typedef Projeto = ({
   String nome,
   String descricao,
@@ -128,10 +129,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Galeria de projetos do IFPA',
+              child: Text('Projetos destaques do IFPA',
               style: GoogleFonts.getFont('Poppins',
               fontSize: 25,
-              color:Color.fromRGBO(13, 10, 210, 1),
+              color:Theme.of(context).colorScheme.primary,
               ),
               ),
             ),

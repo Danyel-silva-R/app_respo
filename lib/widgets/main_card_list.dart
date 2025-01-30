@@ -53,7 +53,7 @@ class _MainCardListState extends State<MainCardList> {
                         ),
                         Text(
                           widget.description,
-                          style: TextStyle(height: 1.2),
+                          style: Theme.of(context).textTheme.titleSmall,
                           textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
